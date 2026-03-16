@@ -1,0 +1,41 @@
+name: Dallas Permit Scraper
+
+on:
+  schedule:
+    # Every hour from 9am to 5pm CST (15:00-23:00 UTC)
+    - cron: '0 15 * * *'
+    - cron: '0 16 * * *'
+    - cron: '0 17 * * *'
+    - cron: '0 18 * * *'
+    - cron: '0 19 * * *'
+    - cron: '0 20 * * *'
+    - cron: '0 21 * * *'
+    - cron: '0 22 * * *'
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run scraper
+        env:
+          ADMIN_UPLOAD_SECRET: ${{ secrets.ADMIN_UPLOAD_SECRET }}
+          ADMIN_URL: ${{ secrets.ADMIN_URL }}
+          DOWNLOAD_DIR: /tmp
+        run: node script.js
