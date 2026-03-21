@@ -3,6 +3,7 @@ name: Dallas Permit Scraper
 on:
   schedule:
     # Every hour from 9am to 5pm CST (15:00-23:00 UTC)
+    - cron: '0 12 * * *'
     - cron: '0 13 * * *'
     - cron: '0 14 * * *'
     - cron: '0 15 * * *'
@@ -11,7 +12,6 @@ on:
     - cron: '0 18 * * *'
     - cron: '0 19 * * *'
     - cron: '0 20 * * *'
-    - cron: '0 21 * * *'
   workflow_dispatch:
 
 jobs:
